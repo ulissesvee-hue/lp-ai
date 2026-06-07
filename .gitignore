@@ -28,6 +28,15 @@ yarn-error.log*
 # local env files
 .env*.local
 
+# local demo data
+/data/demo-clients.json
+/public/uploads/
+/work/
+
+# accidental local copies
+README 2.md
+app/page 2.tsx
+
 # vercel
 .vercel
 

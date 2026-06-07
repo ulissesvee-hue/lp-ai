@@ -1,0 +1,75 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+}
+
+model Client {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  slug     String  @unique
+  isActive Boolean @default(true)
+
+  storeName String
+  ownerName String
+  logoUrl   String?
+  bio       String  @db.Text
+
+  phone    String?
+  whatsapp String?
+  email    String?
+
+  address      String
+  complement   String?
+  neighborhood String?
+  city         String
+  state        String
+  zipCode      String?
+
+  openingHours String?
+
+  googleBusinessUrl String?
+  googlePlaceId     String?
+  googleRating      Float?
+  googleReviewCount Int?
+
+  instagram String?
+  facebook  String?
+
+  primaryColor   String @default("#FF6B00")
+  secondaryColor String @default("#1A1A2E")
+
+  services   Json?
+  brandLogos Json?
+
+  ga4MeasurementId String?
+  metaPixelId       String?
+  googleAdsPixelId  String?
+  webhookUrl        String?
+
+  reviews Review[]
+}
+
+model Review {
+  id         String   @id @default(cuid())
+  createdAt  DateTime @default(now())
+  clientId   String
+  client     Client   @relation(fields: [clientId], references: [id], onDelete: Cascade)
+  authorName String
+  rating     Int
+  comment    String   @db.Text
+  reviewDate DateTime @default(now())
+}
