@@ -671,6 +671,20 @@ export function ClientForm({ mode, clientId, initialValues }: ClientFormProps) {
         </Section>
 
         <Section icon={Star} title="Avaliações do Google">
+          <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+            <p className="text-sm font-semibold text-slate-500">
+              Use avaliações buscadas no Google ou adicione manualmente.
+            </p>
+            <button
+              type="button"
+              onClick={() => setIsReviewModalOpen(true)}
+              className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-slate-200 bg-white px-4 text-sm font-bold text-slate-700 transition hover:border-[#FF6B00] hover:text-[#FF6B00]"
+            >
+              <Plus size={16} />
+              Adicionar avaliação
+            </button>
+          </div>
+
           <div className="grid gap-3">
             {reviews.length ? (
               reviews.map((review, index) => (

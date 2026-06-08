@@ -1,8 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Copy, ExternalLink, Monitor, Smartphone, Tablet } from "lucide-react";
-import { getClientPublicUrl } from "@/lib/format";
+import { getClientUrlForOrigin } from "@/lib/format";
 
 const viewports = {
   desktop: {
@@ -26,9 +26,17 @@ type ViewportKey = keyof typeof viewports;
 
 export function PreviewFrame({ slug }: { slug: string }) {
   const [viewport, setViewport] = useState<ViewportKey>("desktop");
-  const publicUrl = useMemo(() => getClientPublicUrl(slug), [slug]);
+  const [origin, setOrigin] = useState("");
+  const publicUrl = useMemo(
+    () => (origin ? getClientUrlForOrigin(slug, origin) : `/site/${slug}`),
+    [origin, slug],
+  );
   const frameUrl = `/site/${slug}`;
   const active = viewports[viewport];
+
+  useEffect(() => {
+    setOrigin(window.location.origin);
+  }, []);
 
   async function copyLink() {
     await navigator.clipboard.writeText(publicUrl);
@@ -57,7 +65,7 @@ export function PreviewFrame({ slug }: { slug: string }) {
 
         <div className="flex flex-wrap gap-2">
           <a
-            href={frameUrl}
+            href={publicUrl}
             target="_blank"
             rel="noreferrer"
             className="inline-flex h-10 items-center justify-center gap-2 rounded-md border border-slate-200 bg-white px-4 text-sm font-bold text-slate-700 transition hover:border-[#FF6B00] hover:text-[#FF6B00]"

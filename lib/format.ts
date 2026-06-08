@@ -6,6 +6,27 @@ export function getClientPublicUrl(slug: string) {
   return `https://${slug}.${getBaseDomain()}`;
 }
 
+export function getClientUrlForOrigin(slug: string, origin?: string) {
+  if (!origin) return getClientPublicUrl(slug);
+
+  try {
+    const url = new URL(origin);
+    const baseDomain = getBaseDomain();
+
+    if (
+      url.hostname === baseDomain ||
+      url.hostname === `www.${baseDomain}` ||
+      url.hostname.endsWith(`.${baseDomain}`)
+    ) {
+      return getClientPublicUrl(slug);
+    }
+
+    return `${url.origin}/site/${slug}`;
+  } catch {
+    return getClientPublicUrl(slug);
+  }
+}
+
 export function getLocalPreviewUrl(slug: string) {
   return `/site/${slug}`;
 }
