@@ -16,7 +16,9 @@ Banco preparado:
 - Migration `initial_schema` aplicada.
 - Migration `add_tracking_and_webhook_fields` aplicada.
 - Migration `create_client_logos_bucket` aplicada.
+- Migration `enable_rls_for_private_tables` aplicada.
 - Tabelas criadas: `User`, `Client`, `Review`.
+- RLS ativado nas tabelas `User`, `Client` e `Review`.
 - Bucket público criado: `client-logos`.
 
 Chave pública recomendada para `NEXT_PUBLIC_SUPABASE_ANON_KEY`:
@@ -75,17 +77,8 @@ O registro `*` é o que permite que qualquer LP funcione em:
 https://slug-da-loja.aceleraobra.com.br
 ```
 
-## Aviso de segurança
+## Segurança
 
-O Supabase informou que RLS está desligado nas tabelas `User`, `Client` e
-`Review`. Como este app usa Prisma no servidor, não precisa expor essas tabelas
-pela API pública do Supabase.
-
-SQL recomendado para bloquear acesso público via Supabase API:
-
-```sql
-ALTER TABLE public."User" ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public."Client" ENABLE ROW LEVEL SECURITY;
-ALTER TABLE public."Review" ENABLE ROW LEVEL SECURITY;
-```
-
+O RLS foi ativado nas tabelas `User`, `Client` e `Review`. Como o app acessa o
+banco pelo servidor usando Prisma, essas tabelas não precisam ter políticas de
+acesso público pela API do Supabase.

@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "production:check": "node scripts/check-production-env.mjs",
-    "deploy:vercel": "npm run production:check && npm run prisma:generate && npm run prisma:deploy && npm run seed && npm run build",
+    "deploy:vercel": "npm run production:check && npm run prisma:generate && npm run seed && npm run build",
     "prisma:generate": "prisma generate",
     "prisma:migrate": "prisma migrate dev",
     "prisma:deploy": "prisma migrate deploy",
