@@ -10,6 +10,7 @@ type LeadFormProps = {
   primaryColor: string;
   metaPixelId?: string | null;
   googleAdsPixelId?: string | null;
+  compact?: boolean;
 };
 
 declare global {
@@ -25,6 +26,7 @@ export function LeadForm({
   primaryColor,
   metaPixelId,
   googleAdsPixelId,
+  compact = false,
 }: LeadFormProps) {
   const [name, setName] = useState("");
   const [whatsapp, setWhatsapp] = useState("");
@@ -75,12 +77,20 @@ export function LeadForm({
   return (
     <form
       onSubmit={submit}
-      className="mt-8 grid w-full max-w-xl gap-3 rounded-lg bg-white p-4 text-left text-slate-950 shadow-xl"
+      className={
+        compact
+          ? "grid w-full gap-3 pt-5 text-left text-slate-950"
+          : "mt-8 grid w-full max-w-xl gap-3 rounded-lg bg-white p-4 text-left text-slate-950 shadow-xl"
+      }
     >
       <div>
-        <p className="font-display text-xl font-black">Receba atendimento</p>
+        <p className="font-display text-xl font-black">
+          {compact ? "Preencha e fale agora" : "Receba atendimento"}
+        </p>
         <p className="mt-1 text-sm font-semibold text-slate-500">
-          Envie seus dados para a equipe da {storeName}.
+          {compact
+            ? "Estamos prontos para te atender."
+            : `Envie seus dados para a equipe da ${storeName}.`}
         </p>
       </div>
 
@@ -137,7 +147,11 @@ export function LeadForm({
         style={{ backgroundColor: primaryColor }}
       >
         <Send size={18} />
-        {status === "sending" ? "Enviando..." : "Enviar para atendimento"}
+        {status === "sending"
+          ? "Enviando..."
+          : compact
+            ? "Falar agora"
+            : "Enviar para atendimento"}
       </button>
     </form>
   );

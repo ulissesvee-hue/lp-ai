@@ -1,7 +1,6 @@
 import { MessageCircle } from "lucide-react";
 import type { LandingClient } from "@/lib/landing";
 import { buildWhatsAppUrl } from "@/lib/format";
-import { LeadForm } from "@/components/landing/LeadForm";
 
 export function CtaSection({ client }: { client: LandingClient }) {
   return (
@@ -25,15 +24,7 @@ export function CtaSection({ client }: { client: LandingClient }) {
           Estamos prontos para ajudar você a escolher os produtos certos para
           sua construção, reforma ou acabamento.
         </p>
-        {client.hasWebhook ? (
-          <LeadForm
-            slug={client.slug}
-            storeName={client.storeName}
-            primaryColor={client.primaryColor}
-            metaPixelId={client.metaPixelId}
-            googleAdsPixelId={client.googleAdsPixelId}
-          />
-        ) : client.whatsapp ? (
+        {client.whatsapp ? (
           <a
             href={buildWhatsAppUrl(client.whatsapp)}
             target="_blank"

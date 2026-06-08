@@ -1,15 +1,18 @@
 import Image from "next/image";
 import {
   BadgeCheck,
+  CheckCircle2,
   MapPin,
   MessageCircle,
   PackageCheck,
+  PhoneCall,
   Star,
   Store,
   Truck,
 } from "lucide-react";
 import type { LandingClient } from "@/lib/landing";
 import { buildWhatsAppUrl, getInitials } from "@/lib/format";
+import { LeadForm } from "@/components/landing/LeadForm";
 
 export function Hero({ client }: { client: LandingClient }) {
   const whatsappUrl = buildWhatsAppUrl(
@@ -123,6 +126,17 @@ export function Hero({ client }: { client: LandingClient }) {
             </div>
           </div>
 
+          {client.hasWebhook ? (
+            <LeadForm
+              slug={client.slug}
+              storeName={client.storeName}
+              primaryColor={client.primaryColor}
+              metaPixelId={client.metaPixelId}
+              googleAdsPixelId={client.googleAdsPixelId}
+              compact
+            />
+          ) : (
+            <>
           {client.googleRating ? (
             <div className="my-5 flex items-center justify-between rounded-md bg-amber-50 px-4 py-3">
               <div>
@@ -172,6 +186,49 @@ export function Hero({ client }: { client: LandingClient }) {
               <Star className="mb-2 text-amber-500" size={22} />
               <p className="text-sm font-black">Ótimo atendimento</p>
             </div>
+          </div>
+
+              {client.whatsapp ? (
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="mt-4 inline-flex h-12 w-full items-center justify-center gap-2 rounded-md bg-[#25D366] px-5 font-black text-white transition hover:bg-[#20bd5a]"
+                >
+                  <PhoneCall size={18} />
+                  Falar agora
+                </a>
+              ) : null}
+            </>
+          )}
+        </div>
+      </div>
+
+      <div className="relative border-y border-white/10 bg-white/5 px-5 py-8">
+        <div className="mx-auto grid max-w-7xl gap-5 md:grid-cols-[300px_1fr] md:items-center">
+          <div>
+            <p className="text-sm font-black uppercase text-white/60">
+              Sua obra começa aqui
+            </p>
+            <h2 className="font-display mt-2 text-2xl font-black text-white md:text-4xl">
+              Sua melhor escolha
+            </h2>
+          </div>
+          <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              "Melhores preços",
+              "Entrega na região",
+              "Todo tipo de obra",
+              "Marcas do mercado",
+            ].map((item) => (
+              <div
+                key={item}
+                className="flex items-center gap-3 rounded-md bg-white px-4 py-4 text-slate-950 shadow-sm"
+              >
+                <CheckCircle2 size={20} style={{ color: client.primaryColor }} />
+                <span className="text-sm font-black">{item}</span>
+              </div>
+            ))}
           </div>
         </div>
       </div>
