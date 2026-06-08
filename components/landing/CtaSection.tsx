@@ -6,16 +6,24 @@ import { LeadForm } from "@/components/landing/LeadForm";
 export function CtaSection({ client }: { client: LandingClient }) {
   return (
     <section
-      className="px-5 py-20 text-white"
-      style={{ backgroundColor: client.primaryColor }}
+      className="relative overflow-hidden bg-slate-950 px-5 py-20 text-white"
     >
-      <div className="mx-auto flex max-w-5xl flex-col items-center text-center">
+      <div
+        className="absolute inset-0 opacity-25"
+        style={{
+          background: `linear-gradient(135deg, ${client.primaryColor}, transparent 55%)`,
+        }}
+      />
+      <div className="relative mx-auto flex max-w-5xl flex-col items-center text-center">
+        <p className="mb-3 text-sm font-black uppercase text-white/70">
+          Atendimento rápido
+        </p>
         <h2 className="font-display text-3xl font-black md:text-5xl">
-          Pronto para transformar sua obra?
+          Preencha e fale agora com a {client.storeName}.
         </h2>
         <p className="mt-4 max-w-2xl text-lg leading-8 text-white/90">
-          Fale com a equipe da {client.storeName} e encontre os produtos certos
-          para construir, reformar ou finalizar seu projeto.
+          Estamos prontos para ajudar você a escolher os produtos certos para
+          sua construção, reforma ou acabamento.
         </p>
         {client.hasWebhook ? (
           <LeadForm

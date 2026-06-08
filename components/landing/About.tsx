@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { Clock, MapPin, MessageCircle, Phone } from "lucide-react";
+import { Clock, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-react";
 import type { LandingClient } from "@/lib/landing";
 import { buildWhatsAppUrl, formatFullAddress, getInitials } from "@/lib/format";
 
@@ -7,9 +7,10 @@ export function About({ client }: { client: LandingClient }) {
   const address = formatFullAddress(client);
 
   return (
-    <section id="sobre" className="bg-white px-5 py-20">
-      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[380px_1fr]">
-        <div className="reveal flex min-h-80 items-center justify-center rounded-lg bg-slate-100 p-8">
+    <section id="sobre" className="bg-[#F8FAFC] px-5 py-20">
+      <div className="mx-auto grid max-w-7xl gap-10 lg:grid-cols-[430px_1fr]">
+        <div className="reveal rounded-lg bg-white p-5 shadow-sm">
+          <div className="flex min-h-80 items-center justify-center rounded-lg bg-slate-100 p-8">
           {client.logoUrl ? (
             <Image
               src={client.logoUrl}
@@ -26,6 +27,21 @@ export function About({ client }: { client: LandingClient }) {
               {getInitials(client.storeName)}
             </div>
           )}
+          </div>
+          <div className="mt-5 grid gap-3">
+            {[
+              "Atendimento próximo",
+              "Produtos para sua obra",
+              "Compra com praticidade",
+            ].map((item) => (
+              <div key={item} className="flex items-center gap-3">
+                <ShieldCheck size={18} style={{ color: client.primaryColor }} />
+                <span className="text-sm font-black text-slate-700">
+                  {item}
+                </span>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="reveal">
@@ -36,7 +52,7 @@ export function About({ client }: { client: LandingClient }) {
             Sobre nós
           </p>
           <h2 className="font-display text-3xl font-black text-slate-950 md:text-5xl">
-            {client.storeName}
+            Sua melhor escolha em {client.city}.
           </h2>
           <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-600">
             {client.bio}

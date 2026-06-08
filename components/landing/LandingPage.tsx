@@ -15,9 +15,9 @@ export function LandingPage({ client }: { client: LandingClient }) {
     <div className="min-h-screen bg-white text-slate-900">
       <Header client={client} />
       <Hero client={client} />
-      <About client={client} />
       <Services client={client} />
       <Reviews client={client} />
+      <About client={client} />
       <Location client={client} />
       <CtaSection client={client} />
       <Footer client={client} />

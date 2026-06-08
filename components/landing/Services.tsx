@@ -1,5 +1,6 @@
 import type { ElementType } from "react";
 import {
+  BadgePercent,
   Droplets,
   Hammer,
   Home,
@@ -7,6 +8,8 @@ import {
   Package,
   Paintbrush,
   ShieldCheck,
+  Sparkles,
+  Truck,
   Wrench,
   Zap,
 } from "lucide-react";
@@ -51,19 +54,57 @@ export function Services({ client }: { client: LandingClient }) {
   return (
     <section id="produtos" className="bg-[#F8FAFC] px-5 py-20">
       <div className="mx-auto max-w-7xl">
-        <div className="reveal max-w-3xl">
+        <div className="reveal grid gap-6 lg:grid-cols-[1fr_420px] lg:items-end">
+          <div>
+            <p
+              className="mb-3 text-sm font-black uppercase"
+              style={{ color: client.primaryColor }}
+            >
+              Produtos
+            </p>
+            <h2 className="font-display text-3xl font-black text-slate-950 md:text-5xl">
+              Tudo para sua construção, reforma e acabamento.
+            </h2>
+          </div>
+          <p className="text-base font-semibold leading-7 text-slate-600">
+            Conte com variedade, orientação no atendimento e produtos para
+            diferentes etapas da obra, do básico ao acabamento.
+          </p>
+        </div>
+
+        <div className="mt-10 grid gap-4 md:grid-cols-4">
+          {[
+            { icon: BadgePercent, title: "Melhores preços" },
+            { icon: Truck, title: "Entrega rápida" },
+            { icon: Sparkles, title: "Marcas de qualidade" },
+            { icon: ShieldCheck, title: "Atendimento especializado" },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="reveal rounded-lg bg-white p-5 shadow-sm"
+            >
+              <item.icon
+                className="mb-4"
+                size={28}
+                style={{ color: client.primaryColor }}
+              />
+              <p className="font-display text-lg font-black text-slate-950">
+                {item.title}
+              </p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-12">
           <p
             className="mb-3 text-sm font-black uppercase"
             style={{ color: client.primaryColor }}
           >
-            Produtos
+            Linha de produtos
           </p>
-          <h2 className="font-display text-3xl font-black text-slate-950 md:text-5xl">
-            Produtos e marcas para cada etapa da sua obra.
-          </h2>
         </div>
 
-        <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
           {services.map((service) => {
             const Icon = getIcon(service);
             return (
@@ -81,8 +122,8 @@ export function Services({ client }: { client: LandingClient }) {
                   {service}
                 </h3>
                 <p className="mt-3 text-sm leading-6 text-slate-500">
-                  Atendimento especializado para encontrar o produto certo
-                  para sua construção, reforma ou acabamento.
+                  Opções para comprar com praticidade e orientação para
+                  escolher o melhor produto para sua necessidade.
                 </p>
               </div>
             );
@@ -107,15 +148,29 @@ export function Services({ client }: { client: LandingClient }) {
         ) : null}
 
         {client.brandLogos.length ? (
-          <div className="mt-12 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 className="font-display text-2xl font-black text-slate-950">
-              Marcas que você encontra aqui
-            </h3>
-            <div className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
+          <div className="mt-14 rounded-lg border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="flex flex-col gap-2 md:flex-row md:items-end md:justify-between">
+              <div>
+                <p
+                  className="text-sm font-black uppercase"
+                  style={{ color: client.primaryColor }}
+                >
+                  Melhores marcas
+                </p>
+                <h3 className="font-display mt-2 text-2xl font-black text-slate-950 md:text-4xl">
+                  Marcas que você encontra aqui
+                </h3>
+              </div>
+              <p className="max-w-lg text-sm font-semibold leading-6 text-slate-500">
+                Trabalhamos com marcas reconhecidas para entregar qualidade,
+                durabilidade e confiança em cada compra.
+              </p>
+            </div>
+            <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-5">
               {client.brandLogos.map((logo) => (
                 <div
                   key={logo}
-                  className="flex h-24 items-center justify-center rounded-md border border-slate-100 bg-slate-50 p-4"
+                  className="flex h-28 items-center justify-center rounded-md border border-slate-100 bg-slate-50 p-4 transition hover:-translate-y-1 hover:shadow-sm"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
@@ -128,20 +183,6 @@ export function Services({ client }: { client: LandingClient }) {
             </div>
           </div>
         ) : null}
-
-        <div className="mt-12 grid gap-4 md:grid-cols-3">
-          {["Melhores preços", "Marcas de qualidade", "Entrega rápida"].map(
-            (item) => (
-              <div
-                key={item}
-                className="flex items-center gap-3 rounded-lg bg-white p-5 shadow-sm"
-              >
-                <ShieldCheck style={{ color: client.primaryColor }} size={24} />
-                <span className="font-bold text-slate-700">{item}</span>
-              </div>
-            ),
-          )}
-        </div>
       </div>
     </section>
   );
