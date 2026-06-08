@@ -27,11 +27,11 @@ Durante o deploy, a Vercel roda:
 ```bash
 npm run production:check
 npm run prisma:generate
-npm run seed
 npm run build
 ```
 
-Isso valida o ambiente, cria ou atualiza o usuário admin e compila o site.
+Isso valida o ambiente e compila o site. O primeiro usuário admin pode ser
+criado com `npm run seed` em um ambiente seguro ou diretamente no banco.
 
 ## 3. Variáveis obrigatórias na Vercel
 
