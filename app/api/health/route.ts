@@ -12,11 +12,14 @@ export async function GET() {
       database: "ok",
       checkedAt: new Date().toISOString(),
     });
-  } catch {
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Erro desconhecido";
+
     return NextResponse.json(
       {
         status: "error",
         database: "unavailable",
+        message,
         checkedAt: new Date().toISOString(),
       },
       { status: 503 },
