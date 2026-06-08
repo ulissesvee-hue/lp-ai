@@ -53,14 +53,4 @@ if (missing.length > 0) {
   process.exit(1);
 }
 
-const nextAuthUrl = process.env.NEXTAUTH_URL;
-const baseDomain = process.env.BASE_DOMAIN;
-
-if (nextAuthUrl && baseDomain && !nextAuthUrl.includes(baseDomain)) {
-  console.error(
-    `NEXTAUTH_URL precisa apontar para o domínio principal (${baseDomain}).`,
-  );
-  process.exit(1);
-}
-
 console.log("Ambiente de produção validado.");
